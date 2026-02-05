@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+ 
+ <meta charset="UTF-8"> 
+google-site-verification: google0a178ae1732da9a4.html
+<title>طلب شهادة مدرسية</title>
+ 
+ <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="lang-switch">
+    <button onclick="setLang('ar')">العربية</button>
+    <button onclick="setLang('fr')">Français</button>
+    <button onclick="setLang('en')">English</button>
+  </div>
+
+  <h1 id="title">طلب شهادة مدرسية</h1>
+  <p id="subtitle">خاص بالتلاميذ القدامى</p>
+
+  <form id="requestForm">
+    <input type="text" id="name" placeholder="الاسم">
+    <input type="text" id="lastname" placeholder="اللقب">
+    <input type="text" id="year" placeholder="سنة الخروج من الثانوية">
+    <select>
+      <option>نوع الشهادة</option>
+      <option>شهادة مدرسية</option>
+      <option>كشف نقاط</option>
+    </select>
+    <button type="submit" id="send">إرسال الطلب</button>
+  </form>
+</div>
+
+<!-- نافذة منبثقة للرسالة -->
+<div id="popupMsg" class="popup" style="display:none;">
+  <div class="popup-content">
+    <span id="closePopup" class="close">&times;</span>
+    <p id="popupText">تم إرسال طلبكم بنجاح، يرجى التقرب من الثانوية بعد 48 ساعة.</p>
+  </div>
+</div>
+
+<!-- ربط JS بعد كل عناصر HTML -->
+<script src="lang.js"></script>
+</body>
+</html>
