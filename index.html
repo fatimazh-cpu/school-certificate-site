@@ -1,82 +1,65 @@
-﻿<!DOCTYPE html>
-
-<html lang="ar" dir="rtl">
-
+<!DOCTYPE html>
+<html lang="ar">
 <head>
- 
- <meta charset="UTF-8"> 
-
-<title>طلب شهادة مدرسية</title>
- 
- <link rel="stylesheet" href="style.css">
-<script s="https://cdn.emailjs.com/dist/email.min.js">
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب الشهادة المدرسية</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 20px; }
+    h1 { text-align: center; color: #333; }
+    form { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, select, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+  </style>
 </head>
-
-
 <body>
 
-<div class="container">
-  <div class="lang-switch">
-    <button onclick="setLang('ar')">العربية</button>
-    <button onclick="setLang('fr')">Français</button>
-    <button onclick="setLang('en')">English</button>
-  </div>
-
-  <h1 id="title">طلب شهادة مدرسية</h1>
-  <p id="subtitle">خاص بالتلاميذ القدامى</p>
+  <h1>طلب الشهادة المدرسية</h1>
 
   <form id="requestForm">
-    <input type="text" id="name" placeholder="الاسم">
-    <input type="text" id="lastname" placeholder="اللقب">
-    <input type="text" id="year" placeholder="سنة الخروج من الثانوية">
-    <inpu  type="email"id="email"placeholder="البريد الالكتروني">
-    <select id="certificate">
-      <option>نوع الشهادة</option>
-      <option>شهادة مدرسية</option>
-      <option>كشف نقاط</option>
+    <input type="text" id="name" placeholder="الاسم" required>
+    <input type="text" id="lastname" placeholder="اللقب" required>
+    <input type="text" id="year" placeholder="سنة الخروج" required>
+    <select id="certificate" required>
+      <option value="" disabled selected>اختر نوع الشهادة</option>
+      <option value="شهادة مدرسية">شهادة مدرسية</option>
+      <option value="شهادة أخرى">شهادة أخرى</option>
     </select>
-    <button type="submit" id="send">إرسال الطلب</button>
+    <button type="submit">إرسال الطلب</button>
   </form>
-</div>
 
-<!-- نافذة منبثقة للرسالة -->
-<div id="popupMsg" class="popup" style="display:none;">
-  <div class="popup-content">
-    <span id="closePopup" class="close">&times;</span>
-    <p id="popupText">تم إرسال طلبكم بنجاح، يرجى التقرب من الثانوية بعد 48 ساعة.</p>
-  </div>
-</div>
+  <!-- EmailJS -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("1SEtkBqoQMCQ5Gtw-"); // ضع هنا Public Key الخاص بك
+    })();
 
-<!-- ربط JS بعد كل عناصر HTML -->
-<script src="lang.js"></script>
- <script>
-  (function(){
-    emailjs.init("1SEtkBqoQMCQ5Gtw-");
-  })();
+    document.getElementById("requestForm").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  document.getElementById("requestForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+      const templateParams = {
+        name: document.getElementById("name").value,
+        lastname: document.getElementById("lastname").value,
+        year: document.getElementById("year").value,
+        certi: document.getElementById("certificate").value
+      };
 
-    const templateParams = {
-      name: document.getElementById("name").value,
-      lastname: document.getElementById("lastname").value,
-      year: document.getElementById("year").value,
-      
-      certi: document.getElementById("certificate").value
-    };
+      emailjs.send("service_1jb6ycs", "template_73afefm", templateParams)
+        .then(function() {
+          alert("تم إرسال الطلب بنجاح ✅");
+          document.getElementById("requestForm").reset();
+        }, function(error) {
+          alert("حدث خطأ ❌ يرجى المحاولة مرة أخرى");
+          console.log(error);
+        });
+    });
+  </script>
 
-    emailjs.send("service_1jb6ycs", "template_73afefm", templateParams)
-      .then(function() {
-        alert("تم إرسال الطلب بنجاح ✅");
-      }, function(error) {
-        alert("حدث خطأ ❌");
-        console.log(error);
-      });
-  });
-</script>
 </body>
 </html>
+
 
 
 
