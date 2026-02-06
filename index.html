@@ -9,7 +9,8 @@
 <title>طلب شهادة مدرسية</title>
  
  <link rel="stylesheet" href="style.css">
-
+<script s="https://cdn.emailjs.com/dist/email.min.js">
+</script>
 </head>
 
 
@@ -48,5 +49,31 @@
 
 <!-- ربط JS بعد كل عناصر HTML -->
 <script src="lang.js"></script>
+ <script>
+  (function(){
+    emailjs.init("1SEtkBqoQMCQ5Gtw-");
+  })();
+
+  document.getElementById("requestForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const templateParams = {
+      name: document.getElementById("name").value,
+      lastname: document.getElementById("lastname").value,
+      year: document.getElementById("year").value,
+      email: document.getElementById("email").value,
+      certi: document.getElementById("certificate").value
+    };
+
+    emailjs.send("h4zgn7i", "template_73afefm", templateParams)
+      .then(function() {
+        alert("تم إرسال الطلب بنجاح ✅");
+      }, function(error) {
+        alert("حدث خطأ ❌");
+        console.log(error);
+      });
+  });
+</script>
 </body>
 </html>
+
